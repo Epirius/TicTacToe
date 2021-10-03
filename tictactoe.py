@@ -1,8 +1,9 @@
 import random
 import sys
 
-theBoard = {'7': ' ', '8': ' ', '9': ' ', '4': ' ',
-            '5': ' ', '6': ' ', '1': ' ', '2': ' ', '3': ' '}
+theBoard = {'7': ' ', '8': ' ', '9': ' ',
+             '4': ' ','5': ' ', '6': ' ',
+             '1': ' ', '2': ' ', '3': ' '}
 
 
 def printBoard(board):  # prints the board
