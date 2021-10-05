@@ -57,8 +57,7 @@ class Board:
 		x = position[0] - 1
 		y = position[1] - 1
 
-		# checking that the position is clear
-		if self.board_data[x][y] != "   ":
+		if not self.check_pos(position):
 			return False
 		else:
 			# update who's turn it is
@@ -71,5 +70,17 @@ class Board:
 
 			# adding the player icon to the board
 			self.board_data[x][y] = player
-
 		return self.draw_board()
+
+	def check_pos(self, position):
+		"""Takes position [x,y] as input
+			returns true if position is empty, else false
+		"""
+
+		x = position[0] - 1
+		y = position[1] - 1
+
+		if self.board_data[x][y] == "   ":
+			return True
+		else:
+			return False
