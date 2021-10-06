@@ -15,6 +15,7 @@ class Board:
 			for y in range(size):
 				row.append("   ")
 			board_data.append(row)
+		print(board_data)
 		return board_data
 
 	def internal_board(self):
