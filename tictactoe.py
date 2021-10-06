@@ -1,4 +1,5 @@
 from board import Board
+import random
 
 
 def main():
@@ -6,18 +7,24 @@ def main():
 	# game loop
 	while run:
 		board = Board(3)
+		screen_whipe()
 		print(board.draw_board())
 		while check_winning(board) is not True:
 			board.update_board(xy_input(board))  # players turn
 
 			if check_winning(board) is True:  # check if player won
+				screen_whipe()
+				print(board.draw_board())
 				print("You Won!")
 				input()
 				continue
 
-			print(board.update_board(ai_turn()))  # ai turn
+			screen_whipe()
+			print(board.update_board(ai_turn(board)))  # ai turn
 
 			if check_winning(board) is True:  # chek if ai won
+				screen_whipe()
+				print(board.draw_board())
 				print("AI Won!")
 				input()
 				continue
@@ -31,17 +38,16 @@ def xy_input(board):
 	while True:
 		coordinates = input("Position (x,y): ")
 		coordinates = coordinates.split(",")
+
+		if len(coordinates) != 2:
+			print("Invalid input: expected 2 numbers")
+			continue
+
 		coordinates[0] = int(coordinates[0])
 		coordinates[1] = int(coordinates[1])
 
 		if coordinates[0] not in range(1, 4) or coordinates[1] not in range(1, 4):
 			print("Invalid input: x and y need to be between 1 and 3")
-			continue
-		if len(coordinates) > 2:
-			print("Invalid input: only expected 2 numbers")
-			continue
-		if len(coordinates) < 1:
-			print("Invalid input: no input given")
 			continue
 		if board.check_pos(coordinates) is not True:
 			print("Invalid position: occupied square")
@@ -49,8 +55,13 @@ def xy_input(board):
 		return coordinates
 
 
-def ai_turn():  # TODO:
-	return[1, 2]
+def ai_turn(board):  # TODO:
+	while True:
+		x = random.choice(range(1, 4))
+		y = random.choice(range(1, 4))
+		pos = [x, y]
+		if board.check_pos(pos):
+			return pos
 
 
 def check_winning(board):
@@ -72,8 +83,8 @@ def check_winning(board):
 	return False
 
 
-def screen_whipe(n=25):
-	return "\n" * n
+def screen_whipe(n=75):
+	print("\n" * n)
 
 
 if __name__ == "__main__":
